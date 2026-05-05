@@ -214,6 +214,8 @@ curl http://YOUR.VPS.IP:8443/healthz
 
 **Docker (ایمیج GHCR):**
 
+> ⚠️ **مهم:** کانتینر فایل `server_config.json` را به‌صورت خودکار نمی‌سازد. باید قبل از اجرا، `server_config.json` را خودتان بسازید و با `tunnel_key` خودتان پر کنید.
+
 ```bash
 docker run -d \
   --name goose-server \

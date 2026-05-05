@@ -214,6 +214,8 @@ You should see it print the listening address and the healthz/tunnel URLs. Leave
 
 **Docker (GHCR image):**
 
+> ⚠️ **Important:** The container does **not** auto-generate `server_config.json`. You must create and edit `server_config.json` first (with your own `tunnel_key`), then start the container.
+
 ```bash
 docker run -d \
   --name goose-server \
