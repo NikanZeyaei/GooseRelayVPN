@@ -12,14 +12,18 @@ ARG TARGETARCH
 ARG VERSION=dev
 RUN CGO_ENABLED=0 GOOS=${TARGETOS:-linux} GOARCH=${TARGETARCH:-amd64} go build -trimpath -ldflags "-s -w -X main.version=${VERSION}" -o /out/goose-server ./cmd/server
 
-FROM gcr.io/distroless/static-debian12:nonroot
+FROM alpine:3.20
 
 WORKDIR /app
+
+RUN addgroup -S goose && adduser -S -G goose goose
 
 COPY --from=builder /out/goose-server /app/goose-server
 COPY server_config.example.json /app/server_config.example.json
 
 EXPOSE 8443
+
+USER goose
 
 ENTRYPOINT ["/app/goose-server"]
 CMD ["-config", "/app/server_config.json"]
